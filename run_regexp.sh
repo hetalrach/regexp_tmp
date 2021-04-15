@@ -6,7 +6,6 @@
 validate_usage()
 {
 	keyword=$*
-	echo $keyword
 	if [ $set_specified -ne 1 ]
 	then
 		echo "set name has to be speficied"
@@ -14,7 +13,6 @@ validate_usage()
 	fi
 	operations=$(($writeupoption + $inputoption + $outputoption + $testoption))
 
-	echo $operations
 	if [ $operations -ne 1 ]
 	then
 		echo "atleast and only 1 of -w (writeup) -i (input) -o (output) -t (test) has to be used"
@@ -46,7 +44,13 @@ perform_set_operation()
 perform_test_option()
 {
 	echo "Input the regular expression:"
+	command_part1='cat $PWD/$SETNAME/input | grep '
+	echo $command_part1
 	read regexp
+	full_command=$command_part1$regexp
+	echo $full_command
+	echo $regexp
+	echo cat $PWD/$SETNAME/input \| grep $regexp
 	cat $PWD/$SETNAME/input | grep $regexp
 }
 perform_input_option()
@@ -70,28 +74,22 @@ testoption=0
 
 while getopts ":s:iotw" options
 do
-	echo "inside while"
 	case "${options}" in
 		s)
 			SETNAME=${OPTARG}
-			echo "SetName is " $SETNAME
 			set_specified=1
 			;;
 		i)
-			echo "i is set " 
 			inputoption=1
 			;;
 		o)
-			echo "o is set "
 			outputoption=1
 			;;
 		t)
-			echo "t is set "
 			testoption=1
 			testregexp=${OPTARG}
 			;;
 		w)
-			echo "w is set "
 			writeupoption=1
 			;;
 		*)

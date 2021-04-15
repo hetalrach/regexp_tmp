@@ -1,0 +1,11 @@
+Case sensitive
+
+Now that we know basic pattern matching, let's get to options
+
+Anything inside a square bracket, is considered as one of the options
+
+So [Mm] would mean either M or m.
+
+See what happens if you give the following input to match!
+
+[Mm]onday

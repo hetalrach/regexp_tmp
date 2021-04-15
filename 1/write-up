@@ -1,3 +1,6 @@
-This is a test writeup
+The most basic search
 
-Here, we talk of what this is all about
+In the most basic form, the regular expression is nothing but pattern matching.
+
+Find the string Monday in the input file.
+
