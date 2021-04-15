@@ -43,27 +43,40 @@ perform_set_operation()
 
 perform_test_option()
 {
+	cat $PWD/testsets/$SETNAME/write-up
+	echo
+	echo
 	echo "Input the regular expression:"
-	command_part1='cat $PWD/$SETNAME/input | grep '
 	echo $command_part1
 	read regexp
 	full_command=$command_part1$regexp
-	echo $full_command
-	echo $regexp
-	echo cat $PWD/$SETNAME/input \| grep $regexp
-	cat $PWD/$SETNAME/input | grep $regexp
+	cat $PWD/testsets/$SETNAME/input | grep $regexp > /tmp/RE.tmpfile.$$
+	echo
+	echo
+	diff $PWD/testsets/$SETNAME/output /tmp/RE.tmpfile.$$ > /tmp/RE.diff.$$
+	linesinoutput=`cat /tmp/RE.diff.$$ | wc -l`
+	if [ $linesinoutput -eq 0 ]
+	then
+		echo "Woohoo!! Great Job"
+		echo "The output file is"
+		echo
+		echo
+		cat /tmp/RE.tmpfile.$$
+	else
+		cat /tmp/RE.diff.$$
+	fi
 }
 perform_input_option()
 {
-	cat $PWD/$SETNAME/input
+	cat $PWD/testsets/$SETNAME/input
 }
 perform_output_option()
 {
-	cat $PWD/$SETNAME/output
+	cat $PWD/testsets/$SETNAME/output
 }
 perform_writeup_option()
 {
-	cat $PWD/$SETNAME/write-up
+	cat $PWD/testsets/$SETNAME/write-up
 }
 
 set_specified=0
